@@ -17,8 +17,10 @@
 namespace traps_tools::sample
 {
 
-Node::Node()
-: rclcpp::Node(this->default_node_name())
+Node::Node(
+  const std::string & node_name, const std::string & node_namespace,
+  const rclcpp::NodeOptions & node_options)
+: rclcpp::Node(node_name, node_namespace, node_options)
 {
 }
 

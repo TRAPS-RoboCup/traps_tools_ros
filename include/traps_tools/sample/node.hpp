@@ -15,6 +15,8 @@
 #ifndef TRAPS_TOOLS_SAMPLE__NODE_HPP_
 #define TRAPS_TOOLS_SAMPLE__NODE_HPP_
 
+#include <string>
+
 #include "rclcpp/node.hpp"
 
 namespace traps_tools::sample
@@ -24,7 +26,18 @@ class Node : public rclcpp::Node
 {
 public:
   static constexpr auto default_node_name() noexcept {return "sample";}
-  Node();
+
+  Node(
+    const std::string & node_name, const std::string & node_namespace,
+    const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions());
+
+  explicit inline Node(
+    const std::string & node_name,
+    const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
+  : Node(node_name, "", node_options) {}
+
+  explicit inline Node(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
+  : Node(this->default_node_name(), "", node_options) {}
 };
 
 } // namespace traps_tools::sample
