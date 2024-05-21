@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "traps_tools/sample/node.hpp"
+#include "traps_tools/sample.hpp"
 
 namespace traps_tools::sample
 {
