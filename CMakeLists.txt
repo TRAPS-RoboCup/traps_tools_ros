@@ -23,10 +23,36 @@ endif()
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
-ament_auto_add_executable(template
-  src/template.cpp src/traps_tools/template/node.cpp)
+file(GLOB exec_files
+  LIST_DIRECTORIES false
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+  "src/*")
 
-target_compile_features(template PUBLIC c_std_99 cxx_std_17)
+file(GLOB_RECURSE lib_files
+  LIST_DIRECTORIES false
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+  "src/*/*")
+
+foreach(exec_file IN LISTS exec_files)
+  get_filename_component(exec "${exec_file}" NAME_WE)
+  file(GLOB_RECURSE exec_lib_files
+    LIST_DIRECTORIES false
+    RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+    "src/${PROJECT_NAME}/${exec}/*")
+  ament_auto_add_executable(${exec}
+    "${exec_file}" "${exec_lib_files}")
+  target_compile_features(${exec} PUBLIC c_std_99 cxx_std_17)
+  set(execs ${exec};${execs})
+  list(REMOVE_ITEM lib_files "${exec_lib_files}")
+endforeach(exec_file)
+
+if(lib_files)
+  add_library(lib "${lib_files}")
+  target_include_directories(lib PRIVATE "include")
+  foreach(exec IN LISTS execs)
+    target_link_libraries(${exec} lib)
+  endforeach(exec)
+endif()
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
