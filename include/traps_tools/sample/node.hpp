@@ -19,6 +19,8 @@
 
 #include "rclcpp/node.hpp"
 
+#include "traps_tools/visibility.hpp"
+
 namespace traps_tools::sample
 {
 
@@ -27,15 +29,18 @@ class Node : public rclcpp::Node
 public:
   static constexpr auto default_node_name() noexcept {return "sample";}
 
+  TRAPS_TOOLS_PUBLIC
   Node(
     const std::string & node_name, const std::string & node_namespace,
     const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions());
 
+  TRAPS_TOOLS_PUBLIC
   explicit inline Node(
     const std::string & node_name,
     const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
   : Node(node_name, "", node_options) {}
 
+  TRAPS_TOOLS_PUBLIC
   explicit inline Node(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
   : Node(this->default_node_name(), "", node_options) {}
 };

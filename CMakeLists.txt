@@ -23,26 +23,24 @@ endif()
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
-file(GLOB exec_files
-  LIST_DIRECTORIES false
-  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-  "src/*")
+set(execs sample;${TRAPS_TOOLS_EXECS})
 
 file(GLOB_RECURSE lib_files
   LIST_DIRECTORIES false
   RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
   "src/*/*")
 
-foreach(exec_file IN LISTS exec_files)
-  get_filename_component(exec "${exec_file}" NAME_WE)
+foreach(exec IN LISTS execs)
   file(GLOB_RECURSE exec_lib_files
     LIST_DIRECTORIES false
     RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
     "src/${PROJECT_NAME}/${exec}/*")
-  ament_auto_add_executable(${exec}
-    "${exec_file}" "${exec_lib_files}")
+  ament_auto_add_library(${exec}_lib SHARED
+    "${exec_lib_files}")
+  rclcpp_components_register_node(${exec}_lib
+    PLUGIN "${PROJECT_NAME}::${exec}::Node"
+    EXECUTABLE ${exec})
   target_compile_features(${exec} PUBLIC c_std_99 cxx_std_17)
-  set(execs ${exec};${execs})
   list(REMOVE_ITEM lib_files "${exec_lib_files}")
 endforeach()
 
