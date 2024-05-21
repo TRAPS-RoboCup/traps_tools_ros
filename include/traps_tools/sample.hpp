@@ -12,19 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "rclcpp/context.hpp"
-#include "rclcpp/executors/single_threaded_executor.hpp"
+#ifndef TRAPS_TOOLS__SAMPLE_HPP_
+#define TRAPS_TOOLS__SAMPLE_HPP_
 
-#include "traps_tools/sample.hpp"
-#include "traps_tools/sample/node.hpp"
-
-int main(int argc, char ** argv)
+namespace traps_tools
 {
-  rclcpp::init(argc, argv);
-  rclcpp::executors::SingleThreadedExecutor exec;
-  auto node = std::make_shared<traps_tools::sample::Node>();
-  exec.add_node(node);
-  exec.spin();
-  rclcpp::shutdown();
-  return 0;
-}
+
+class Sample
+{
+
+};
+
+} // namespace traps_tools
+
+#endif  // TRAPS_TOOLS__SAMPLE_HPP_
