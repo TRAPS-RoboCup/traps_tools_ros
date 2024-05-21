@@ -19,7 +19,7 @@ limitations under the License. -->
   <name>traps_tools</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="ayim2612@gmail.com">root</maintainer>
+  <maintainer email="traps.robocup@gmail.com">TRAPS</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
