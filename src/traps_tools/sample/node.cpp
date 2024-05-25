@@ -14,14 +14,27 @@
 
 #include "traps_tools/sample/node.hpp"
 
+#include "traps_tools/default_qos.hpp"
+
 namespace traps_tools::sample
 {
 
 Node::Node(
   const std::string & node_name, const std::string & node_namespace,
   const rclcpp::NodeOptions & node_options)
-: rclcpp::Node(node_name, node_namespace, node_options)
+: rclcpp::Node(node_name, node_namespace, node_options),
+  republish_string_publisher_(this->create_publisher<std_msgs::msg::String>(
+      std::string(this->get_name()) + "/republish_string", traps_tools::dynamic_qos())),
+  string_subscription_(this->create_subscription<std_msgs::msg::String>(
+      std::string(this->get_name()) + "/string", traps_tools::dynamic_qos(),
+      [this](std_msgs::msg::String::ConstPtr string_msg) {this->republish(string_msg);}))
 {
+}
+
+void Node::republish(std_msgs::msg::String::ConstPtr string_msg)
+{
+  RCLCPP_INFO(this->get_logger(), "republish string : %s", string_msg->data.c_str());
+  republish_string_publisher_->publish(*string_msg);
 }
 
 }  // namespace traps_tools::sample
