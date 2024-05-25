@@ -53,8 +53,6 @@ endif()
 
 if(BUILD_TESTING)
   ament_auto_find_test_dependencies()
-  set(ament_cmake_copyright_FOUND TRUE)
-  set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
 
