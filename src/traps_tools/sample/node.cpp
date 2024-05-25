@@ -24,7 +24,7 @@ Node::Node(
 {
 }
 
-} // namespace traps_tools::sample
+}  // namespace traps_tools::sample
 
 #include "rclcpp_components/register_node_macro.hpp"
 

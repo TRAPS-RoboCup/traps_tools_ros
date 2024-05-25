@@ -20,9 +20,8 @@ namespace traps_tools
 
 class Sample
 {
-
 };
 
-} // namespace traps_tools
+}  // namespace traps_tools
 
 #endif  // TRAPS_TOOLS__SAMPLE_HPP_

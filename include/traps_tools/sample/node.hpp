@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef TRAPS_TOOLS_SAMPLE__NODE_HPP_
-#define TRAPS_TOOLS_SAMPLE__NODE_HPP_
+#ifndef TRAPS_TOOLS__SAMPLE__NODE_HPP_
+#define TRAPS_TOOLS__SAMPLE__NODE_HPP_
 
 #include <string>
 
 #include "rclcpp/node.hpp"
-
 #include "traps_tools/visibility.hpp"
 
 namespace traps_tools::sample
@@ -36,15 +35,18 @@ public:
 
   TRAPS_TOOLS_PUBLIC
   explicit inline Node(
-    const std::string & node_name,
-    const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
-  : Node(node_name, "", node_options) {}
+    const std::string & node_name, const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
+  : Node(node_name, "", node_options)
+  {
+  }
 
   TRAPS_TOOLS_PUBLIC
   explicit inline Node(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
-  : Node(this->default_node_name(), "", node_options) {}
+  : Node(this->default_node_name(), "", node_options)
+  {
+  }
 };
 
-} // namespace traps_tools::sample
+}  // namespace traps_tools::sample
 
-#endif  // TRAPS_TOOLS_SAMPLE__NODE_HPP_
+#endif  // TRAPS_TOOLS__SAMPLE__NODE_HPP_

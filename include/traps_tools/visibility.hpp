@@ -16,8 +16,7 @@
 #define TRAPS_TOOLS__VISIBILITY_HPP_
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 // This logic was borrowed (then namespaced) from the examples on the gcc wiki:
@@ -25,38 +24,38 @@ extern "C"
 
 #if defined _WIN32 || defined __CYGWIN__
 
-  #ifdef __GNUC__
-    #define TRAPS_TOOLS_EXPORT __attribute__ ((dllexport))
-    #define TRAPS_TOOLS_IMPORT __attribute__ ((dllimport))
-  #else
-    #define TRAPS_TOOLS_EXPORT __declspec(dllexport)
-    #define TRAPS_TOOLS_IMPORT __declspec(dllimport)
-  #endif
+#ifdef __GNUC__
+#define TRAPS_TOOLS_EXPORT __attribute__((dllexport))
+#define TRAPS_TOOLS_IMPORT __attribute__((dllimport))
+#else
+#define TRAPS_TOOLS_EXPORT __declspec(dllexport)
+#define TRAPS_TOOLS_IMPORT __declspec(dllimport)
+#endif
 
-  #ifdef TRAPS_TOOLS_DLL
-    #define TRAPS_TOOLS_PUBLIC TRAPS_TOOLS_EXPORT
-  #else
-    #define TRAPS_TOOLS_PUBLIC TRAPS_TOOLS_IMPORT
-  #endif
+#ifdef TRAPS_TOOLS_DLL
+#define TRAPS_TOOLS_PUBLIC TRAPS_TOOLS_EXPORT
+#else
+#define TRAPS_TOOLS_PUBLIC TRAPS_TOOLS_IMPORT
+#endif
 
-  #define TRAPS_TOOLS_PUBLIC_TYPE TRAPS_TOOLS_PUBLIC
+#define TRAPS_TOOLS_PUBLIC_TYPE TRAPS_TOOLS_PUBLIC
 
-  #define TRAPS_TOOLS_LOCAL
+#define TRAPS_TOOLS_LOCAL
 
 #else
 
-  #define TRAPS_TOOLS_EXPORT __attribute__ ((visibility("default")))
-  #define TRAPS_TOOLS_IMPORT
+#define TRAPS_TOOLS_EXPORT __attribute__((visibility("default")))
+#define TRAPS_TOOLS_IMPORT
 
-  #if __GNUC__ >= 4
-    #define TRAPS_TOOLS_PUBLIC __attribute__ ((visibility("default")))
-    #define TRAPS_TOOLS_LOCAL  __attribute__ ((visibility("hidden")))
-  #else
-    #define TRAPS_TOOLS_PUBLIC
-    #define TRAPS_TOOLS_LOCAL
-  #endif
+#if __GNUC__ >= 4
+#define TRAPS_TOOLS_PUBLIC __attribute__((visibility("default")))
+#define TRAPS_TOOLS_LOCAL __attribute__((visibility("hidden")))
+#else
+#define TRAPS_TOOLS_PUBLIC
+#define TRAPS_TOOLS_LOCAL
+#endif
 
-  #define TRAPS_TOOLS_PUBLIC_TYPE
+#define TRAPS_TOOLS_PUBLIC_TYPE
 #endif
 
 #ifdef __cplusplus
