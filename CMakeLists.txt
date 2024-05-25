@@ -54,6 +54,7 @@ endif()
 if(BUILD_TESTING)
   ament_auto_find_test_dependencies()
   ament_lint_auto_find_test_dependencies()
+  ament_auto_add_gtest(sample_test test/sample_test.cpp)
 endif()
 
 ament_auto_package()
