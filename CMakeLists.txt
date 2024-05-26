@@ -47,6 +47,11 @@ foreach(exec IN LISTS execs)
     EXECUTABLE ${exec})
 endforeach()
 
+install(DIRECTORY
+  config
+  launch
+  DESTINATION share/${PROJECT_NAME}/)
+
 if(BUILD_TESTING)
   ament_auto_find_test_dependencies()
   ament_lint_auto_find_test_dependencies()
