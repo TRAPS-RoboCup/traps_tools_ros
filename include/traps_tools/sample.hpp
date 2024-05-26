@@ -15,11 +15,16 @@
 #ifndef TRAPS_TOOLS__SAMPLE_HPP_
 #define TRAPS_TOOLS__SAMPLE_HPP_
 
+#include "traps_tools/msg/sample_string.hpp"
+
 namespace traps_tools
 {
 
 class Sample
 {
+public:
+  static traps_tools::msg::SampleString sample_string_msg_from_ptr(
+    traps_tools::msg::SampleString::ConstSharedPtr sample_string_msg);
 };
 
 }  // namespace traps_tools

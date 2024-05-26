@@ -17,4 +17,10 @@
 namespace traps_tools
 {
 
+traps_tools::msg::SampleString Sample::sample_string_msg_from_ptr(
+  traps_tools::msg::SampleString::ConstSharedPtr sample_string_msg)
+{
+  return *sample_string_msg;
+}
+
 }  // namespace traps_tools

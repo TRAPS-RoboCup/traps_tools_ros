@@ -15,6 +15,7 @@
 #include "traps_tools/sample/node.hpp"
 
 #include "traps_tools/default_qos.hpp"
+#include "traps_tools/sample.hpp"
 
 namespace traps_tools::sample
 {
@@ -36,7 +37,7 @@ Node::Node(
 void Node::republish(traps_tools::msg::SampleString::ConstSharedPtr string_msg)
 {
   RCLCPP_INFO(this->get_logger(), "republish string : %s", string_msg->data.c_str());
-  republish_string_publisher_->publish(*string_msg);
+  republish_string_publisher_->publish(Sample::sample_string_msg_from_ptr(string_msg));
 }
 
 }  // namespace traps_tools::sample
