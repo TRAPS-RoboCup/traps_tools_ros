@@ -23,12 +23,22 @@ endif()
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
+file(GLOB interface_files
+  LIST_DIRECTORIES false
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+  "msg/*")
+rosidl_generate_interfaces("${PROJECT_NAME}"
+  "${interface_files}"
+  DEPENDENCIES "${${PROJECT_NAME}_FOUND_BUILD_DEPENDS}")
+rosidl_get_typesupport_target(cpp_typesupport_target "${PROJECT_NAME}" "rosidl_typesupport_cpp")
+
 file(GLOB_RECURSE "${PROJECT_NAME}_lib_files"
   LIST_DIRECTORIES false
   RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
   "src/*/*")
 ament_auto_add_library("${PROJECT_NAME}_lib" SHARED "${${PROJECT_NAME}_lib_files}")
 target_compile_features("${PROJECT_NAME}_lib" PUBLIC c_std_99 cxx_std_17)
+target_link_libraries("${PROJECT_NAME}_lib" "${cpp_typesupport_target}")
 
 set(execs sample;${TRAPS_TOOLS_EXECS})
 foreach(exec IN LISTS execs)
