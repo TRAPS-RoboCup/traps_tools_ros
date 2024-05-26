@@ -14,7 +14,7 @@
 
 #include "traps_tools/sample/node.hpp"
 
-#include "traps_tools/default_qos.hpp"
+#include "traps_tools/dynamic_qos.hpp"
 #include "traps_tools/sample.hpp"
 
 namespace traps_tools::sample

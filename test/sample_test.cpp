@@ -16,7 +16,7 @@
 
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
-#include "traps_tools/default_qos.hpp"
+#include "traps_tools/dynamic_qos.hpp"
 #include "traps_tools/msg/sample_string.hpp"
 #include "traps_tools/sample/node.hpp"
 
