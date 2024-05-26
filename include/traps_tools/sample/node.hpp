@@ -18,7 +18,7 @@
 #include <string>
 
 #include "rclcpp/node.hpp"
-#include "std_msgs/msg/string.hpp"
+#include "traps_tools/msg/sample_string.hpp"
 #include "traps_tools/visibility.hpp"
 
 namespace traps_tools::sample
@@ -47,11 +47,11 @@ public:
   {
   }
 
-  void republish(std_msgs::msg::String::ConstPtr string_msg);
+  void republish(traps_tools::msg::SampleString::ConstPtr string_msg);
 
 private:
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr republish_string_publisher_;
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr string_subscription_;
+  rclcpp::Publisher<traps_tools::msg::SampleString>::SharedPtr republish_string_publisher_;
+  rclcpp::Subscription<traps_tools::msg::SampleString>::SharedPtr string_subscription_;
 };
 
 }  // namespace traps_tools::sample
