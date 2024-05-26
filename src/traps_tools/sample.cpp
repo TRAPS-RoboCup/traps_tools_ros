@@ -14,7 +14,7 @@
 
 #include "traps_tools/sample.hpp"
 
-namespace traps_tools::sample
+namespace traps_tools
 {
 
-}  // namespace traps_tools::sample
+}  // namespace traps_tools
