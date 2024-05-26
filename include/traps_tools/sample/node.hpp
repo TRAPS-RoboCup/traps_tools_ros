@@ -16,6 +16,7 @@
 #define TRAPS_TOOLS__SAMPLE__NODE_HPP_
 
 #include <string>
+#include <vector>
 
 #include "rclcpp/node.hpp"
 #include "traps_tools/msg/sample_string.hpp"
@@ -49,9 +50,14 @@ public:
 
   void republish(traps_tools::msg::SampleString::ConstSharedPtr string_msg);
 
+  rcl_interfaces::msg::SetParametersResult on_set_parameters_callback(
+    const std::vector<rclcpp::Parameter> & params);
+
 private:
   rclcpp::Publisher<traps_tools::msg::SampleString>::SharedPtr republish_string_publisher_;
   rclcpp::Subscription<traps_tools::msg::SampleString>::SharedPtr string_subscription_;
+  rclcpp::node_interfaces::OnSetParametersCallbackHandle::SharedPtr
+    on_set_parameter_call_back_handle_;
 };
 
 }  // namespace traps_tools::sample

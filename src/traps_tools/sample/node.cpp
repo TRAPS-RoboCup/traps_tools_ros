@@ -30,14 +30,42 @@ Node::Node(
       std::string(this->get_name()) + "/string", traps_tools::dynamic_qos(),
       [this](traps_tools::msg::SampleString::ConstSharedPtr string_msg) {
         this->republish(string_msg);
+      })),
+  on_set_parameter_call_back_handle_(
+    this->add_on_set_parameters_callback(
+      [this](const std::vector<rclcpp::Parameter> & params) {
+        return this->on_set_parameters_callback(std::move(params));
       }))
 {
+  this->declare_parameter("parameter_status", "default");
 }
 
 void Node::republish(traps_tools::msg::SampleString::ConstSharedPtr string_msg)
 {
   RCLCPP_INFO(this->get_logger(), "republish string : %s", string_msg->data.c_str());
   republish_string_publisher_->publish(Sample::sample_string_msg_from_ptr(string_msg));
+}
+
+rcl_interfaces::msg::SetParametersResult Node::on_set_parameters_callback(
+  const std::vector<rclcpp::Parameter> & params)
+{
+  rcl_interfaces::msg::SetParametersResult set_parameters_result_msg;
+  set_parameters_result_msg.successful = true;
+  for (const auto & param : params) {
+    try {
+      if (param.get_name() == "parameter_status") {
+        auto parameter_status = param.as_string();
+      }
+      RCLCPP_INFO(
+        this->get_logger(), "Successfully set the value of parameter %s to %s",
+        param.get_name().c_str(), param.value_to_string().c_str());
+    } catch (std::exception & e) {
+      set_parameters_result_msg.successful = false;
+      set_parameters_result_msg.reason += std::string(e.what()) + "; ";
+    }
+  }
+
+  return set_parameters_result_msg;
 }
 
 }  // namespace traps_tools::sample
