@@ -47,7 +47,7 @@ public:
   {
   }
 
-  void republish(traps_tools::msg::SampleString::ConstPtr string_msg);
+  void republish(traps_tools::msg::SampleString::ConstSharedPtr string_msg);
 
 private:
   rclcpp::Publisher<traps_tools::msg::SampleString>::SharedPtr republish_string_publisher_;

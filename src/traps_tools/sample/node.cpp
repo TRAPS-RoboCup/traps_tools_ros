@@ -27,13 +27,13 @@ Node::Node(
       std::string(this->get_name()) + "/republish_string", traps_tools::dynamic_qos())),
   string_subscription_(this->create_subscription<traps_tools::msg::SampleString>(
       std::string(this->get_name()) + "/string", traps_tools::dynamic_qos(),
-      [this](traps_tools::msg::SampleString::ConstPtr string_msg) {
+      [this](traps_tools::msg::SampleString::ConstSharedPtr string_msg) {
         this->republish(string_msg);
       }))
 {
 }
 
-void Node::republish(traps_tools::msg::SampleString::ConstPtr string_msg)
+void Node::republish(traps_tools::msg::SampleString::ConstSharedPtr string_msg)
 {
   RCLCPP_INFO(this->get_logger(), "republish string : %s", string_msg->data.c_str());
   republish_string_publisher_->publish(*string_msg);

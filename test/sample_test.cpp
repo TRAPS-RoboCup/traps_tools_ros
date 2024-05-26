@@ -23,10 +23,10 @@
 TEST(sample, string_republish)
 {
   auto test_node = std::make_shared<rclcpp::Node>("test");
-  traps_tools::msg::SampleString::ConstPtr republish_msg;
+  traps_tools::msg::SampleString::ConstSharedPtr republish_msg;
   auto sample_string_subscription = test_node->create_subscription<traps_tools::msg::SampleString>(
     "sample/republish_string", traps_tools::dynamic_qos(),
-    [&republish_msg, &test_node](traps_tools::msg::SampleString::ConstPtr republish_msg_arg) {
+    [&republish_msg, &test_node](traps_tools::msg::SampleString::ConstSharedPtr republish_msg_arg) {
       republish_msg = std::move(republish_msg_arg);
     });
   auto sample_string_publisher = test_node->create_publisher<traps_tools::msg::SampleString>(
