@@ -23,33 +23,19 @@ endif()
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
-set(execs sample;${TRAPS_TOOLS_EXECS})
-
-file(GLOB_RECURSE lib_files
+file(GLOB_RECURSE "${PROJECT_NAME}_lib_files"
   LIST_DIRECTORIES false
   RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
   "src/*/*")
+ament_auto_add_library("${PROJECT_NAME}_lib" SHARED "${${PROJECT_NAME}_lib_files}")
+target_compile_features("${PROJECT_NAME}_lib" PUBLIC c_std_99 cxx_std_17)
 
+set(execs sample;${TRAPS_TOOLS_EXECS})
 foreach(exec IN LISTS execs)
-  file(GLOB_RECURSE exec_lib_files
-    LIST_DIRECTORIES false
-    RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-    "src/${PROJECT_NAME}/${exec}/*")
-  ament_auto_add_library(${exec}_lib SHARED
-    "${exec_lib_files}")
-  rclcpp_components_register_node(${exec}_lib
+  rclcpp_components_register_node("${PROJECT_NAME}_lib"
     PLUGIN "${PROJECT_NAME}::${exec}::Node"
     EXECUTABLE ${exec})
-  target_compile_features(${exec} PUBLIC c_std_99 cxx_std_17)
-  list(REMOVE_ITEM lib_files "${exec_lib_files}")
 endforeach()
-
-if(lib_files)
-  ament_auto_add_library(lib "${lib_files}")
-  foreach(exec IN LISTS execs)
-    target_link_libraries(${exec} lib)
-  endforeach()
-endif()
 
 if(BUILD_TESTING)
   ament_auto_find_test_dependencies()
