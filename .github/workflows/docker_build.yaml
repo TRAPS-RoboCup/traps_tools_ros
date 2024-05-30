@@ -4,7 +4,6 @@ run-name: Docker Build:${{ github.ref_name }}(${{ github.event.head_commit.messa
 
 on:
   push:
-  pull_request:
 
 jobs:
   docker-build:
