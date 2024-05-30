@@ -26,7 +26,7 @@ jobs:
         run: rosdep update && rosdep install -iy --from-paths .
       
       - name: Build
-        run: . /opt/ros/humble/setup.bash && colcon build
+        run: . /opt/ros/humble/setup.sh && colcon build
       
       - name: Test
-        run: . /opt/ros/humble/setup.bash && colcon test && colcon test-result --verbose
+        run: . /opt/ros/humble/setup.sh && colcon test && colcon test-result --verbose
