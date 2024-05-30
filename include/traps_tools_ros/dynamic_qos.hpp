@@ -12,15 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "traps_tools/sample.hpp"
+#ifndef TRAPS_TOOLS_ROS__DYNAMIC_QOS_HPP_
+#define TRAPS_TOOLS_ROS__DYNAMIC_QOS_HPP_
 
-namespace traps_tools
+#include "rclcpp/qos.hpp"
+
+namespace traps_tools_ros
 {
 
-traps_tools::msg::SampleString Sample::sample_string_msg_from_ptr(
-  traps_tools::msg::SampleString::ConstSharedPtr sample_string_msg)
+namespace
 {
-  return *sample_string_msg;
-}
 
-}  // namespace traps_tools
+auto dynamic_qos() {return rclcpp::QoS(1).best_effort().durability_volatile();}
+
+}  // namespace
+
+}  // namespace traps_tools_ros
+
+#endif  // TRAPS_TOOLS_ROS__DYNAMIC_QOS_HPP_

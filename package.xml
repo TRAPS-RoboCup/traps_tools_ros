@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License. -->
 
 <package format="3">
-  <name>traps_tools</name>
+  <name>traps_tools_ros</name>
   <version>0.0.0</version>
   <description>TRAPSで使用するROS2のツール類</description>
   <maintainer email="traps.robocup@gmail.com">TRAPS</maintainer>

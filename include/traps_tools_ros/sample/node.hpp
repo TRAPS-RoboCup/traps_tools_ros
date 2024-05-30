@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef TRAPS_TOOLS__SAMPLE__NODE_HPP_
-#define TRAPS_TOOLS__SAMPLE__NODE_HPP_
+#ifndef TRAPS_TOOLS_ROS__SAMPLE__NODE_HPP_
+#define TRAPS_TOOLS_ROS__SAMPLE__NODE_HPP_
 
 #include <string>
 #include <vector>
 
 #include "rclcpp/node.hpp"
-#include "traps_tools/msg/sample_string.hpp"
-#include "traps_tools/visibility.hpp"
+#include "traps_tools_ros/msg/sample_string.hpp"
+#include "traps_tools_ros/visibility.hpp"
 
-namespace traps_tools::sample
+namespace traps_tools_ros::sample
 {
 
 class Node : public rclcpp::Node
@@ -30,36 +30,36 @@ class Node : public rclcpp::Node
 public:
   static constexpr auto default_node_name() noexcept {return "sample";}
 
-  TRAPS_TOOLS_PUBLIC
+  TRAPS_TOOLS_ROS_PUBLIC
   Node(
     const std::string & node_name, const std::string & node_namespace,
     const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions());
 
-  TRAPS_TOOLS_PUBLIC
+  TRAPS_TOOLS_ROS_PUBLIC
   explicit inline Node(
     const std::string & node_name, const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
   : Node(node_name, "", node_options)
   {
   }
 
-  TRAPS_TOOLS_PUBLIC
+  TRAPS_TOOLS_ROS_PUBLIC
   explicit inline Node(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions())
   : Node(this->default_node_name(), "", node_options)
   {
   }
 
-  void republish(traps_tools::msg::SampleString::ConstSharedPtr string_msg);
+  void republish(traps_tools_ros::msg::SampleString::ConstSharedPtr string_msg);
 
   rcl_interfaces::msg::SetParametersResult on_set_parameters_callback(
     const std::vector<rclcpp::Parameter> & params);
 
 private:
-  rclcpp::Publisher<traps_tools::msg::SampleString>::SharedPtr republish_string_publisher_;
-  rclcpp::Subscription<traps_tools::msg::SampleString>::SharedPtr string_subscription_;
+  rclcpp::Publisher<traps_tools_ros::msg::SampleString>::SharedPtr republish_string_publisher_;
+  rclcpp::Subscription<traps_tools_ros::msg::SampleString>::SharedPtr string_subscription_;
   rclcpp::node_interfaces::OnSetParametersCallbackHandle::SharedPtr
     on_set_parameter_call_back_handle_;
 };
 
-}  // namespace traps_tools::sample
+}  // namespace traps_tools_ros::sample
 
-#endif  // TRAPS_TOOLS__SAMPLE__NODE_HPP_
+#endif  // TRAPS_TOOLS_ROS__SAMPLE__NODE_HPP_

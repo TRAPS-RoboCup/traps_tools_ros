@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef TRAPS_TOOLS__STATIC_QOS_HPP_
-#define TRAPS_TOOLS__STATIC_QOS_HPP_
+#ifndef TRAPS_TOOLS_ROS__STATIC_QOS_HPP_
+#define TRAPS_TOOLS_ROS__STATIC_QOS_HPP_
 
 #include "rclcpp/qos.hpp"
 
-namespace traps_tools
+namespace traps_tools_ros
 {
 
 namespace
@@ -27,6 +27,6 @@ auto static_qos() {return rclcpp::QoS(1).reliable().transient_local();}
 
 }  // namespace
 
-}  // namespace traps_tools
+}  // namespace traps_tools_ros
 
-#endif  // TRAPS_TOOLS__STATIC_QOS_HPP_
+#endif  // TRAPS_TOOLS_ROS__STATIC_QOS_HPP_

@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "traps_tools/sample/node.hpp"
+#include "traps_tools_ros/sample/node.hpp"
 
-#include "traps_tools/dynamic_qos.hpp"
-#include "traps_tools/sample.hpp"
+#include "traps_tools_ros/dynamic_qos.hpp"
+#include "traps_tools_ros/sample.hpp"
 
-namespace traps_tools::sample
+namespace traps_tools_ros::sample
 {
 
 Node::Node(
   const std::string & node_name, const std::string & node_namespace,
   const rclcpp::NodeOptions & node_options)
 : rclcpp::Node(node_name, node_namespace, node_options),
-  republish_string_publisher_(this->create_publisher<traps_tools::msg::SampleString>(
-      std::string(this->get_name()) + "/republish_string", traps_tools::dynamic_qos())),
-  string_subscription_(this->create_subscription<traps_tools::msg::SampleString>(
-      std::string(this->get_name()) + "/string", traps_tools::dynamic_qos(),
-      [this](traps_tools::msg::SampleString::ConstSharedPtr string_msg) {
+  republish_string_publisher_(this->create_publisher<traps_tools_ros::msg::SampleString>(
+      std::string(this->get_name()) + "/republish_string", traps_tools_ros::dynamic_qos())),
+  string_subscription_(this->create_subscription<traps_tools_ros::msg::SampleString>(
+      std::string(this->get_name()) + "/string", traps_tools_ros::dynamic_qos(),
+      [this](traps_tools_ros::msg::SampleString::ConstSharedPtr string_msg) {
         this->republish(string_msg);
       })),
   on_set_parameter_call_back_handle_(
@@ -40,7 +40,7 @@ Node::Node(
   this->declare_parameter("parameter_status", "default");
 }
 
-void Node::republish(traps_tools::msg::SampleString::ConstSharedPtr string_msg)
+void Node::republish(traps_tools_ros::msg::SampleString::ConstSharedPtr string_msg)
 {
   RCLCPP_INFO(this->get_logger(), "republish string : %s", string_msg->data.c_str());
   republish_string_publisher_->publish(Sample::sample_string_msg_from_ptr(string_msg));
@@ -68,8 +68,8 @@ rcl_interfaces::msg::SetParametersResult Node::on_set_parameters_callback(
   return set_parameters_result_msg;
 }
 
-}  // namespace traps_tools::sample
+}  // namespace traps_tools_ros::sample
 
 #include "rclcpp_components/register_node_macro.hpp"
 
-RCLCPP_COMPONENTS_REGISTER_NODE(traps_tools::sample::Node)
+RCLCPP_COMPONENTS_REGISTER_NODE(traps_tools_ros::sample::Node)

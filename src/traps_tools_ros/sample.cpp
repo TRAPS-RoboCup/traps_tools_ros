@@ -12,21 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef TRAPS_TOOLS__SAMPLE_HPP_
-#define TRAPS_TOOLS__SAMPLE_HPP_
+#include "traps_tools_ros/sample.hpp"
 
-#include "traps_tools/msg/sample_string.hpp"
-
-namespace traps_tools
+namespace traps_tools_ros
 {
 
-class Sample
+traps_tools_ros::msg::SampleString Sample::sample_string_msg_from_ptr(
+  traps_tools_ros::msg::SampleString::ConstSharedPtr sample_string_msg)
 {
-public:
-  static traps_tools::msg::SampleString sample_string_msg_from_ptr(
-    traps_tools::msg::SampleString::ConstSharedPtr sample_string_msg);
-};
+  return *sample_string_msg;
+}
 
-}  // namespace traps_tools
-
-#endif  // TRAPS_TOOLS__SAMPLE_HPP_
+}  // namespace traps_tools_ros

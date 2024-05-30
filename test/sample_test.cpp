@@ -16,25 +16,27 @@
 
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
-#include "traps_tools/dynamic_qos.hpp"
-#include "traps_tools/msg/sample_string.hpp"
-#include "traps_tools/sample/node.hpp"
+#include "traps_tools_ros/dynamic_qos.hpp"
+#include "traps_tools_ros/msg/sample_string.hpp"
+#include "traps_tools_ros/sample/node.hpp"
 
 TEST(sample, string_republish)
 {
   auto test_node = std::make_shared<rclcpp::Node>("test");
-  traps_tools::msg::SampleString::ConstSharedPtr republish_msg;
-  auto sample_string_subscription = test_node->create_subscription<traps_tools::msg::SampleString>(
-    "sample/republish_string", traps_tools::dynamic_qos(),
-    [&republish_msg, &test_node](traps_tools::msg::SampleString::ConstSharedPtr republish_msg_arg) {
+  traps_tools_ros::msg::SampleString::ConstSharedPtr republish_msg;
+  auto sample_string_subscription =
+    test_node->create_subscription<traps_tools_ros::msg::SampleString>(
+    "sample/republish_string", traps_tools_ros::dynamic_qos(),
+    [&republish_msg,
+    &test_node](traps_tools_ros::msg::SampleString::ConstSharedPtr republish_msg_arg) {
       republish_msg = std::move(republish_msg_arg);
     });
-  auto sample_string_publisher = test_node->create_publisher<traps_tools::msg::SampleString>(
-    "sample/string", traps_tools::dynamic_qos());
+  auto sample_string_publisher = test_node->create_publisher<traps_tools_ros::msg::SampleString>(
+    "sample/string", traps_tools_ros::dynamic_qos());
 
-  auto sample_node = std::make_shared<traps_tools::sample::Node>();
+  auto sample_node = std::make_shared<traps_tools_ros::sample::Node>();
 
-  traps_tools::msg::SampleString sample_string_msg;
+  traps_tools_ros::msg::SampleString sample_string_msg;
   sample_string_msg.data = "sample_test";
   sample_string_publisher->publish(sample_string_msg);
 
