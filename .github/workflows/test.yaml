@@ -23,7 +23,7 @@ jobs:
         run: apt-get update && apt-get install -y
 
       - name: Install package by rosdep
-        run: rosdep update && rosdep install -iy --from-paths src
+        run: rosdep update && rosdep install -iy --from-paths .
       
       - name: Build
         run: . /opt/ros/humble/setup.bash && colcon build
