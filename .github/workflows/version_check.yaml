@@ -12,9 +12,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
       
       - id: latest_id
         run: git describe --tags --abbrev=0 >> $GITHUB_OUTPUT
+
+      - name: Checkout
+        uses: actions/checkout@v4
       
       - id: current_id
         run: xmllint --xpath /package/version package.xml | sed 's/^.*<version.*>\(.*\)<\/version>.*$/v\1/' >> $GITHUB_OUTPUT
