@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - name: Skip check
+        if: ${{ github.base_ref == 'main' }}
+        run: echo "Skip because it is not a merge to Main Brunch" && exit 0
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -26,7 +30,7 @@ jobs:
         run: xmllint --xpath /package/version package.xml | sed 's/^.*<version.*>\(.*\)<\/version>.*$/v\1/' >> $GITHUB_OUTPUT
       
       - id: check_version
-        run: echo ${{ (github.base_ref == 'main' && steps.latest_id.outputs.name != steps.current_id.outputs.name) }} >> $GITHUB_OUTPUT
+        run: echo ${{ steps.latest_id.outputs.name != steps.current_id.outputs.name }} >> $GITHUB_OUTPUT
 
       - name: Faile
         if: ${{ !steps.check_version.outputs.name }}
