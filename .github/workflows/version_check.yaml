@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Skip check
-        if: ${{ github.base_ref == 'main' }}
+        if: ${{ github.base_ref != 'main' }}
         run: echo "Skip because it is not a merge to Main Brunch" && exit 0
 
       - name: Checkout
