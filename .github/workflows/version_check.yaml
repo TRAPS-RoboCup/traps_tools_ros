@@ -1,6 +1,6 @@
 name: Version Check
 
-run-name: Version Check:${{ github.ref_name }}(${{ github.event.head_commit.message }})
+run-name: Version Check:${{ github.event.pull_request.title  }}
 
 on:
   pull_request:
