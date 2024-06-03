@@ -10,10 +10,6 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Skip check
-        if: ${{ github.base_ref != 'main' }}
-        run: echo "Skip because it is not a merge to Main Brunch" && exit 0
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -21,6 +17,7 @@ jobs:
           repository: ${{ github.event.pull_request.base.repo.full_name }}
       
       - id: latest_id
+        if: ${{ github.base_ref == 'main' }}
         run: git describe --tags --abbrev=0 >> $GITHUB_OUTPUT
 
       - name: Checkout
