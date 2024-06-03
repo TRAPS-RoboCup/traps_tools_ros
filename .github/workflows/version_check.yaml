@@ -30,9 +30,9 @@ jobs:
         run: echo status=$(xmllint --xpath /package/version package.xml | sed 's/^.*<version.*>\(.*\)<\/version>.*$/v\1/') >> $GITHUB_OUTPUT
 
       - name: Faile
-        if: $${{ steps.latest_id.outputs.name != steps.current_id.outputs.status }}
+        if: $${{ steps.latest_id.outputs.status == steps.current_id.outputs.status }}
         run: echo You need to change the version before merging to main && exit 1
 
       - name: Success
-        if: $${{ steps.latest_id.outputs.name == steps.current_id.outputs.status }}
+        if: $${{ steps.latest_id.outputs.status != steps.current_id.outputs.status }}
         run: echo Success to check version
