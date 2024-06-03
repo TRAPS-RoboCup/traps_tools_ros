@@ -1,0 +1,31 @@
+name: Version Check
+
+run-name: Version Check:${{ github.ref_name }}(${{ github.event.head_commit.message }})
+
+on:
+  pull_request:
+
+jobs:
+  version-chack:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - id: latest_id
+        run: git describe --tags --abbrev=0 >> $GITHUB_OUTPUT
+      
+      - id: current_id
+        run: xmllint --xpath /package/version package.xml | sed 's/^.*<version.*>\(.*\)<\/version>.*$/v\1/' >> $GITHUB_OUTPUT
+      
+      - id: check_version
+        run: echo ${{ (github.base_ref == 'main' && steps.latest_id.outputs.name != steps.current_id.outputs.name) }} >> $GITHUB_OUTPUT
+
+      - name: Faile
+        if: ${{ !steps.check_version.outputs.name }}
+        run: echo You need to change the version before merging to main && exit 1
+
+      - name: Success
+        if: ${{ steps.check_version.outputs.name }}
+        run: echo Success to check version
