@@ -21,14 +21,12 @@ jobs:
       
       - id: latest_id
         if: ${{ github.base_ref == 'main' }}
-        shell: bash
         run: VERSION=$(git describe --tags --abbrev=0) && echo ${VERSION//./_} >> "$GITHUB_OUTPUT"
 
       - name: Checkout
         uses: actions/checkout@v4
       
       - id: current_id
-        shell: bash
         run: VERSION=$(xmllint --xpath /package/version package.xml | sed 's/^.*<version.*>\(.*\)<\/version>.*$/v\1/') && echo ${VERSION//./_} >> "$GITHUB_OUTPUT"
 
       - name: Faile
