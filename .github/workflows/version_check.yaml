@@ -35,4 +35,4 @@ jobs:
 
       - name: Success
         if: ${{ steps.latest_id.outputs.status != steps.current_id.outputs.status }}
-        run: echo Success to check version \(new version:${{ steps.latest_id.outputs.status }}, old version:${{steps.current_id.outputs.status }}\)
+        run: echo Success to check version \(new version:${{ steps.current_id.outputs.status }}, old version:${{steps.latest_id.outputs.status }}\)
