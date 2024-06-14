@@ -12,12 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# 引数設定
+# イメージ引数設定
 ARG BASE_IMAGE=humble-ros-base
-ARG PACKAGE_NAME
 
 # プラットフォームとベースのイメージを設定
 FROM --platform=$BUILDPLATFORM ros:${BASE_IMAGE}
+
+# ビルド引数設定
+ARG PACKAGE_NAME
 
 # 設定されたワークスペースに移動
 WORKDIR /root/ros2_ws
