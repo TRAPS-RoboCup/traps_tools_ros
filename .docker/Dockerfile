@@ -18,9 +18,6 @@ ARG BASE_IMAGE=humble-ros-base
 # プラットフォームとベースのイメージを設定
 FROM --platform=$BUILDPLATFORM ros:${BASE_IMAGE}
 
-# ビルド引数設定
-ARG PACKAGE_NAME
-
 # 設定されたワークスペースに移動
 WORKDIR /root/ros2_ws
 
@@ -28,7 +25,9 @@ WORKDIR /root/ros2_ws
 USER root
 
 # リポジトリとws_entry_point.shのコピー
-COPY . "./src/${PACKAGE_NAME}/."
+COPY . "./src/package/."
+ARG PACKAGE_NAME=$(xmllint --xpath "string(/package/name)" "./src/package/package.xml")
+RUN mv "./src/package" "./src/${PACKAGE_NAME}"
 COPY ./.docker/ws_entrypoint.sh /.
 RUN chmod +x /ws_entrypoint.sh
 
