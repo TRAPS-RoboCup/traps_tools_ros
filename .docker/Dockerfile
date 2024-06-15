@@ -37,7 +37,7 @@ RUN sed -i '/\[http "https:\/\/github\.com\/"\]/,+1 d' ./src/${PACKAGE_NAME}/.gi
 # パッケージのインストール
 RUN apt-get update && xargs -a "./src/${PACKAGE_NAME}/config/apt/requirements.txt" apt-get install -y lsb-release wget software-properties-common gnupg
 RUN wget https://apt.llvm.org/llvm.sh && chmod +x llvm.sh && sudo ./llvm.sh 18
-RUN rosdep install -iy --from-paths src
+RUN rosdep update && rosdep install -iy --from-paths src
 RUN rm ./llvm.sh && apt-get remove lsb-release wget software-properties-common gnupg
 RUN 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
