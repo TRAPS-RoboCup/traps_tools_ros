@@ -41,8 +41,6 @@ RUN rosdep update && rosdep install -iy --from-paths src
 RUN rm ./llvm.sh && apt-get remove -y lsb-release wget software-properties-common gnupg
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# clang-18のインストール
-
 # ビルド
 RUN . /opt/ros/humble/setup.sh && colcon build --cmake-args -D CMAKE_C_COMPILER=clang-18 -D CMAKE_CXX_COMPILER=clang++-18
 RUN rm -rf ./log
