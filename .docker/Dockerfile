@@ -16,7 +16,7 @@
 ARG BASE_IMAGE=humble-ros-base
 
 # プラットフォームとベースのイメージを設定
-FROM --platform=$BUILDPLATFORM ros:${BASE_IMAGE}
+FROM ros:${BASE_IMAGE}
 
 # 設定されたワークスペースに移動
 WORKDIR /root/ros2_ws
